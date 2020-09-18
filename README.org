@@ -1,0 +1,204 @@
+#+TITLE: Functional Programming and Cleaner Code
+#+AUTHOR: Vikrant Gajria
+#+DATE: 19 September, 2020
+
+* What you already know
+- Structural Programming
+  #+BEGIN_SRC c
+int sum = 0; // GLOBAL STATE, CAN'T BE PARALLELISED
+void inorder(struct Node* n) {
+    if(n == NULL) {
+        return;
+    }
+
+    inorder(n->left);
+    printf("%d", n->val); // SIDE EFFECT
+    sum += n->val;
+    inorder(n->right);
+}
+
+int main() {
+    sum = 0; // Terrible
+    inorder(&root);
+}
+  #+END_SRC
+
+- Object Oriented Programming
+  #+BEGIN_SRC python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def yell(self):
+        if self.name == 'cat':
+            print("Meow") # SIDE EFFECT
+        elif self.name == 'dog':
+            print("Woof") # SIDE EFFECT
+        else:
+            raise Error("What animal is this?") # TERRIBLE SIDE EFFECT
+  #+END_SRC
+
+* Problems
+- Messed up logic
+  + Where is this variable defined
+  + Why is this function printing this
+  + How do I add new feature
+  + Do I have to copy paste and change this one line to add a new feature
+  + What is the input and output of this function
+  + How do I do multithreading/ multiprocessing
+  + ... my mind has gone blank in this project ...
+- We juniors are bound to write bad code
+- Scalability and Maintainability sucks
+- Frustration
+
+* What you don't know
+#+BEGIN_SRC haskell
+data Tree = Node Tree Int Tree | Leaf
+
+inorder :: Tree -> [Int]
+inorder (Node l x r) = inorder l ++ [x] ++ inorder r
+inorder Leaf = []
+
+sumTree :: Tree -> Int
+sumTree Leaf = 0
+sumTree n@_ = sum $ inorder n
+
+printTree :: Tree -> IO()
+printTree = mapM_ putStrLn . map show . inorder
+-- h = f . g
+-- h(x) = f(g(x))
+#+END_SRC
+
+* What is functional programming?
+- Functions are first-class
+  #+BEGIN_SRC haskell
+twice :: Int -> Int
+twice = (*2)
+
+x :: [Int]
+x = map twice [1, 2, 3, 4, 5]
+
+grayscale :: [Int] -> [Int]
+grayscale = map (/255)
+
+img :: [Int]
+img = grayscale [1, 2, 3, 4, 5]
+  #+END_SRC
+
+- Functions can be passed around and used as data
+  #+BEGIN_SRC python
+def get_multiplier(n: int):
+    def mulf(a: int):
+        return a * n
+    return mulf
+  #+END_SRC
+
+- Your code is cleaner and each line is meaningful
+  #+BEGIN_SRC javascript
+const ar = [1,2,3,4,5,6,7,8,9,10];
+let sum;
+for(let x of ar) {
+    if(x % 2 != 0) {
+        continue;
+    }
+
+    const t = 2 ** x;
+    sum += t;
+}
+console.log(sum);
+  #+END_SRC
+
+  #+BEGIN_SRC javascript
+const ar = [1,2,3,4,5,6,7,8,9,10];
+const sum = ar
+      .filter(x => x % 2 == 0)
+      .map(x => 2 ** x)
+      .reduce((a, b) => a + b);
+console.log(sum);
+  #+END_SRC
+
+- Each and every part of your code is modular
+  + map, filter, reduce, sum, even, odd
+  + grayscale, runYolo, isValid, runVGG16
+
+* Many languages have functional programming features!
+- Java 8
+  + Closure, Scala
+- Python
+- Javascript, Typescript
+  + ReasonML, Elm
+- C++ ?!?!
+- Many many more
+
+* Things you should know and follow
+- Function takes an input and gives an output
+  + Fixed types
+  + Try to avoid exception handling, do it only in "main"-kind of functions
+  + Kind of like a blackbox
+- map, filter, reduce (js: forEach)
+  + Haskell has no loops or if statements!
+- Lambda functions = anonymous functions
+  #+BEGIN_SRC python
+even = lambda x: x % 2 == 0
+odd = lambda x: not even(x)
+sumReducer = lambda a, b: a + b
+
+def sumPowerEvens(ar):
+    f = filter(even, ar)
+    m = map(lambda x: 2**x, f)
+    s = reduce(sumReducer, m)
+    return s
+  #+END_SRC
+
+- Others
+  + Avoid global state
+  + Avoid side effects
+
+* Companies which love FP
+- Twitter uses Scala
+- Facebook made their own language
+  + ReasonML = JS + OCalm
+  + Can compile to frontend and native
+- Google, Hadoop, Spark - MapReduce
+- Facebook's PyTorch!
+  + Keras followed later
+
+* Examples
+** OpenCV Python
+face_detection.py
+
+** PyTorch
+#+BEGIN_SRC python
+import torch.nn.functional as F
+...
+def forward(self, x):
+    x = F.relu(F.max_pool2d(self.conv1(x), 2))
+    x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
+    x = x.view(-1, 320)
+    x = F.relu(self.fc1(x))
+    x = F.dropout(x, training=self.training)
+    x = self.fc2(x)
+    return F.log_softmax(x)
+# Keras can do this too!
+...
+#+END_SRC
+
+* Cons
+- Longer code, more function definitions
+- Dunno how to split
+  + Comes from practice
+
+* Pros
+- Unit testable
+- Parallelizable
+- Easy to debug
+- Easy to document
+- Easy to split work with a team
+- Easy to modify and extend
+- Easy to reuse
+- Simpler than OOP
+
+* Javascript
+- React Redux (Reducers)
+  + React.useReducer()
+- Lodash is the best functional utilities library
