@@ -59,14 +59,16 @@ inorder :: Tree -> [Int]
 inorder (Node l x r) = inorder l ++ [x] ++ inorder r
 inorder Leaf = []
 
-sumTree :: Tree -> Int
-sumTree Leaf = 0
-sumTree n@_ = sum $ inorder n
+sumTree :: Tree -> [Int]
+sumTree = sum . inorder
+-- h = f . g
+-- h(x) = f(g(x))
+
+doubleTree :: Tree -> [Int]
+doubleTree = (*2) . inorder
 
 printTree :: Tree -> IO()
 printTree = mapM_ putStrLn . map show . inorder
--- h = f . g
--- h(x) = f(g(x))
 #+END_SRC
 
 * What is functional programming?
@@ -123,7 +125,7 @@ console.log(sum);
 
 * Many languages have functional programming features!
 - Java 8
-  + Closure, Scala
+  + Clojure, Scala
 - Python
 - Javascript, Typescript
   + ReasonML, Elm
@@ -183,11 +185,11 @@ def forward(self, x):
 ...
 #+END_SRC
 
-* Cons
-- Longer code, more function definitions
-- Dunno how to split
-  + Comes from practice
-
+* Javascript
+- React Redux (Reducers)
+  + React.useReducer()
+- Lodash is the best functional utilities library
+ 
 * Pros
 - Unit testable
 - Parallelizable
@@ -198,7 +200,64 @@ def forward(self, x):
 - Easy to reuse
 - Simpler than OOP
 
-* Javascript
-- React Redux (Reducers)
-  + React.useReducer()
-- Lodash is the best functional utilities library
+* Cons
+- Longer code, more function definitions
+- Dunno how to split
+  + Comes from practice
+
+* Write code which lasts
+- Helps in maintaining large projects
+- Seniors at company like it
+- AWS Lambda, Hadoop, Spark...
+- Helps you write logic faster
+  + Hackathons, Projects
+  + Competetive Coding (Hashcode)
+
+* That was functional programming
+All you need to write better code in projects.
+The next part is gonna be much more difficult and research oriented.
+Python, JS, Java and all are not functional languages,
+They support functional programming features.
+
+* Pure functional programming
+- Lambda Calculus
+- Came before OOP
+- Difficult to learn that's why not used in industry
+  + Scientific research
+  + Verification of programs
+  + Automatic theory proving (Coq)
+  + Has masters prospects
+
+* Pure concepts
+- Functions take input and give output, no hidden state
+  + Pure functions, no side-effects
+  + Parallelise
+  + Lazy evaluation
+- Function compositions, Monads, Monoids, Applicators, Functors
+- No for loops, no if statements, no variables, no assignments
+  + Use recursion for loops
+  + Use filter for ifs
+  + Internally, no `x = x * 10`
+  + Immutable data, just garbage collect old data
+- Strict types
+  + No dynamic typing like Python
+  + Clear definition of what a function takes and gives
+  + Sometimes, a new type system like Algebraic Data Types
+
+* How the fuck would you write code??
+- Get a new way of thinking
+- Good return on investment
+
+* Examples
+ See .hs files
+
+* Examples
+- Compilers, Complex logic, Maths
+  + Theory of Computer Science (sem 5)
+- Research
+- Static Analysis and Verification
+  + Prove that your code will give correct output,
+  + Without running the code!
+- Whatsapp and many other backends
+  + Erlang, Elixer
+  + Scala, Clojure, Lisp, Scheme, ML, OCaml, Haskell
