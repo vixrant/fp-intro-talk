@@ -92,6 +92,10 @@ Vikrant Gajria
   </p>
   <p class="date">19 September, 2020</p>
 </div>
+<div class="slide section level1">
+
+<p>Slides are available at vixrant.github.io/fp-intro-talk</p>
+</div>
 <div id="what-you-already-know" class="slide section level1">
 <h1>What you already know</h1>
 <ul>
@@ -152,14 +156,16 @@ Vikrant Gajria
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>inorder (<span class="dt">Node</span> l x r) <span class="ot">=</span> inorder l <span class="op">++</span> [x] <span class="op">++</span> inorder r</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>inorder <span class="dt">Leaf</span> <span class="ot">=</span> []</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="ot">sumTree ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>sumTree <span class="dt">Leaf</span> <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>sumTree n<span class="op">@</span>_ <span class="ot">=</span> <span class="fu">sum</span> <span class="op">$</span> inorder n</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="ot">printTree ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">IO</span>()</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>printTree <span class="ot">=</span> <span class="fu">mapM_</span> <span class="fu">putStrLn</span> <span class="op">.</span> <span class="fu">map</span> <span class="fu">show</span> <span class="op">.</span> inorder</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="co">-- h = f . g</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a><span class="co">-- h(x) = f(g(x))</span></span></code></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="ot">sumTree ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> [<span class="dt">Int</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>sumTree <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> inorder</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="co">-- h = f . g</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="co">-- h(x) = f(g(x))</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="ot">doubleTree ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> [<span class="dt">Int</span>]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>doubleTree <span class="ot">=</span> (<span class="op">*</span><span class="dv">2</span>) <span class="op">.</span> inorder</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="ot">printTree ::</span> <span class="dt">Tree</span> <span class="ot">-&gt;</span> <span class="dt">IO</span>()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>printTree <span class="ot">=</span> <span class="fu">mapM_</span> <span class="fu">putStrLn</span> <span class="op">.</span> <span class="fu">map</span> <span class="fu">show</span> <span class="op">.</span> inorder</span></code></pre></div>
 </div>
 <div id="what-is-functional-programming" class="slide section level1">
 <h1>What is functional programming?</h1>
@@ -184,7 +190,7 @@ Vikrant Gajria
 <li><p>Your code is cleaner and each line is meaningful</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">const</span> ar <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">8</span><span class="op">,</span><span class="dv">9</span><span class="op">,</span><span class="dv">10</span>]<span class="op">;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">let</span> sum<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="cf">for</span>(<span class="kw">let</span> x <span class="kw">of</span> sum) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="cf">for</span>(<span class="kw">let</span> x <span class="kw">of</span> ar) {</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="cf">if</span>(x <span class="op">%</span> <span class="dv">2</span> <span class="op">!=</span> <span class="dv">0</span>) {</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>        <span class="cf">continue</span><span class="op">;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    }</span>
@@ -211,7 +217,7 @@ Vikrant Gajria
 <ul>
 <li>Java 8
 <ul>
-<li>Closure, Scala</li>
+<li>Clojure, Scala</li>
 </ul></li>
 <li>Python</li>
 <li>Javascript, Typescript
@@ -285,15 +291,16 @@ Vikrant Gajria
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>    <span class="cf">return</span> F.log_softmax(x)</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a><span class="co"># Keras can do this too!</span></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a>...</span></code></pre></div>
+<h2 id="apache-spark-hadoop-mapreduce">Apache Spark/ Hadoop MapReduce</h2>
 </div>
-<div id="cons" class="slide section level1">
-<h1>Cons</h1>
+<div id="javascript" class="slide section level1">
+<h1>Javascript</h1>
 <ul>
-<li>Longer code, more function definitions</li>
-<li>Dunno how to split
+<li>React Redux (Reducers)
 <ul>
-<li>Comes from practice</li>
+<li>React.useReducer()</li>
 </ul></li>
+<li>Lodash is the best functional utilities library</li>
 </ul>
 </div>
 <div id="pros" class="slide section level1">
@@ -309,14 +316,120 @@ Vikrant Gajria
 <li>Simpler than OOP</li>
 </ul>
 </div>
-<div id="javascript" class="slide section level1">
-<h1>Javascript</h1>
+<div id="cons" class="slide section level1">
+<h1>Cons</h1>
 <ul>
-<li>React Redux (Reducers)
+<li>Longer code, more function definitions</li>
+<li>Dunno how to split
 <ul>
-<li>React.useReducer()</li>
+<li>Comes from practice</li>
 </ul></li>
-<li>Lodash is the best functional utilities library</li>
+</ul>
+</div>
+<div id="write-code-which-lasts" class="slide section level1">
+<h1>Write code which lasts</h1>
+<ul>
+<li>Helps in maintaining large projects</li>
+<li>Seniors at company like it</li>
+<li>AWS Lambda, Hadoop, Spark…</li>
+<li>Helps you write logic faster
+<ul>
+<li>Hackathons, Projects</li>
+<li>Competetive Coding (Hashcode)</li>
+</ul></li>
+</ul>
+</div>
+<div id="that-was-functional-programming" class="slide section level1">
+<h1>That was functional programming</h1>
+<p>All you need to write better code in projects. The next part is gonna be much more difficult and research oriented.</p>
+<p>Python, JS, Java and all are not functional languages, They support functional programming features.</p>
+</div>
+<div id="pure-functional-programming" class="slide section level1">
+<h1>Pure functional programming</h1>
+<ul>
+<li>Lambda Calculus</li>
+<li>Came before OOP</li>
+<li>Difficult to learn that's why not used in industry
+<ul>
+<li>Scientific research</li>
+<li>Verification of programs</li>
+<li>Automatic theory proving (Coq)</li>
+<li>Has masters prospects</li>
+</ul></li>
+</ul>
+</div>
+<div id="pure-concepts" class="slide section level1">
+<h1>Pure concepts</h1>
+<ul>
+<li>Functions take input and give output, no hidden state
+<ul>
+<li>Pure functions, no side-effects</li>
+<li>Parallelise</li>
+<li>Lazy evaluation</li>
+</ul></li>
+<li>Function compositions, Monads, Monoids, Applicators, Functors</li>
+<li>No for loops, no if statements, no variables, no assignments
+<ul>
+<li>Use recursion for loops</li>
+<li>Use filter for ifs</li>
+<li>Internally, no `x = x * 10`</li>
+<li>Immutable data, just garbage collect old data</li>
+</ul></li>
+<li>Strict types
+<ul>
+<li>No dynamic typing like Python</li>
+<li>Clear definition of what a function takes and gives</li>
+<li>Sometimes, a new type system like Algebraic Data Types</li>
+</ul></li>
+</ul>
+</div>
+<div id="how-the-fuck-would-you-write-code" class="slide section level1">
+<h1>How the fuck would you write code??</h1>
+<ul>
+<li>Get a new way of thinking</li>
+<li>Good return on investment</li>
+</ul>
+</div>
+<div id="examples-1" class="slide section level1">
+<h1>Examples</h1>
+<p>See .hs files</p>
+</div>
+<div id="applications" class="slide section level1">
+<h1>Applications</h1>
+<ul>
+<li>Compilers, Complex logic, Maths
+<ul>
+<li>Theory of Computer Science (sem 5)</li>
+</ul></li>
+<li>Research</li>
+<li>Static Analysis and Verification
+<ul>
+<li>Prove that your code will give correct output,</li>
+<li>Without running the code!</li>
+</ul></li>
+<li>Whatsapp and many other backends
+<ul>
+<li>Erlang, Elixer</li>
+<li>Scala, Clojure, Lisp, Scheme, ML, OCaml, Haskell</li>
+</ul></li>
+</ul>
+</div>
+<div id="thats-all-for-an-introduction" class="slide section level1">
+<h1>That's all for an introduction</h1>
+<ul>
+<li>Practice impure FP in your projects</li>
+<li>If you are interested, only if you are interested
+<ul>
+<li>Learn Haskell/ OCaml for research purposes (CIS 194 course)</li>
+<li>Learn Scala if you want to make better Java projects (more relevant in industry)</li>
+</ul></li>
+</ul>
+</div>
+<div id="tata" class="slide section level1">
+<h1>Tata!</h1>
+<ul>
+<li>github.com/vixrant</li>
+<li>vgajria.com</li>
 </ul>
 </div>
 </body>

@@ -2,6 +2,8 @@
 #+AUTHOR: Vikrant Gajria
 #+DATE: 19 September, 2020
 
+Slides are available at vixrant.github.io/fp-intro-talk
+
 * What you already know
 - Structural Programming
   #+BEGIN_SRC c
@@ -185,6 +187,8 @@ def forward(self, x):
 ...
 #+END_SRC
 
+** Apache Spark/ Hadoop MapReduce
+
 * Javascript
 - React Redux (Reducers)
   + React.useReducer()
@@ -216,6 +220,7 @@ def forward(self, x):
 * That was functional programming
 All you need to write better code in projects.
 The next part is gonna be much more difficult and research oriented.
+
 Python, JS, Java and all are not functional languages,
 They support functional programming features.
 
@@ -251,7 +256,7 @@ They support functional programming features.
 * Examples
  See .hs files
 
-* Examples
+* Applications
 - Compilers, Complex logic, Maths
   + Theory of Computer Science (sem 5)
 - Research
@@ -261,3 +266,13 @@ They support functional programming features.
 - Whatsapp and many other backends
   + Erlang, Elixer
   + Scala, Clojure, Lisp, Scheme, ML, OCaml, Haskell
+
+* That's all for an introduction
+ - Practice impure FP in your projects
+ - If you are interested, only if you are interested
+   + Learn Haskell/ OCaml for research purposes (CIS 194 course)
+   + Learn Scala if you want to make better Java projects (more relevant in industry)
+
+* Tata!
+ - github.com/vixrant
+ - vgajria.com
