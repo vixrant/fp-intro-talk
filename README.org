@@ -249,7 +249,7 @@ They support functional programming features.
   + Clear definition of what a function takes and gives
   + Sometimes, a new type system like Algebraic Data Types
 
-* How the fuck would you write code??
+* How would you write code??
 - Get a new way of thinking
 - Good return on investment
 
